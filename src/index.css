@@ -1,0 +1,119 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: "Nanum Gothic", sans-serif;
+}
+body {
+  margin: 0;
+}
+header {
+  height: 58px;
+  background: rgb(28, 116, 233);
+  background: linear-gradient(
+    90deg,
+    rgba(28, 116, 233, 1) 0%,
+    rgba(101, 162, 244, 1) 100%
+  );
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+header h1 {
+  padding-left: 14px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 10px;
+}
+header button {
+  padding-right: 14px;
+  color: white;
+}
+.input-title {
+  font-size: 1.323rem;
+  padding-bottom: 4px;
+  color: rgb(88, 83, 83);
+}
+.nickname-title {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.btn-twitter {
+  background-color: #149af3;
+  border-color: #1d9bf0;
+  border-radius: 1px;
+  color: white;
+  width: 100%;
+}
+.btn-kakaostory {
+  background-color: #fdc10e;
+  border-color: #fdc10e;
+  border-radius: 1px;
+  color: white;
+  width: 100%;
+}
+.btn-kakaostory:hover {
+  background-color: #e4ae0d !important;
+  border-color: #e4ae0d !important;
+}
+.btn-kakao {
+  background-color: #efd60a;
+  border-color: #efd60a;
+  border-radius: 1px;
+  color: white;
+  width: 100%;
+}
+.btn-kakao:hover {
+  background-color: #c7b10b !important;
+  border-color: #c7b10b !important;
+}
+.btn-add {
+  background-color: #3084fa;
+  border-color: #3084fa;
+  color: white;
+}
+.btn-add:hover {
+  background-color: #1677ff;
+  border-color: #1677ff;
+  color: rgb(231, 231, 231);
+}
+
+.radio-button {
+  width: 50%;
+  height: 40px;
+  padding-top: 4px;
+}
+
+.ant-list {
+  border-radius: 0;
+}
+
+.test-subtitle {
+  font-size: 18px;
+  color: rgba(28, 116, 233, 1);
+  font-weight: bold;
+}
+.vote-button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  height: 30px;
+}
+
+.first-flex {
+  flex-grow: 1;
+}
+.second-flex {
+  flex-shrink: 0;
+  width: 60px;
+}
+
+.btn-radio-word {
+  padding: 0 8px;
+}
