@@ -5,7 +5,7 @@ import { TestList } from "./TestList";
 import { CommentList } from "./CommentList";
 import {
   getList,
-  getTest,
+  getLine,
   getTwitterTrends,
   doVote,
   addComment,
@@ -86,8 +86,8 @@ export const Home = () => {
   });
   const [result, setResult] = useState("");
   const [nickname, setNickname] = useState(
-    localStorage.getItem("f5game-test-nickname")
-      ? localStorage.getItem("f5game-test-nickname")
+    localStorage.getItem("f5game-line-nickname")
+      ? localStorage.getItem("f5game-line-nickname")
       : ""
   );
   const [voteUpCount, setVoteUpCount] = useState(0);
@@ -115,7 +115,7 @@ export const Home = () => {
 
     resultMessage = `${getRandomEmoji()} ${
       item.title
-    }${getRandomFaceEmoji()}%0A${tempMessage}%0A%0A👉 https://test.f5game.co.kr/${
+    }${getRandomFaceEmoji()}%0A${tempMessage}%0A%0A👉 https://line.f5game.co.kr/${
       item.idx
     }%0A${getTrendTextTop3()}`;
     setResult(resultMessage);
@@ -141,13 +141,13 @@ export const Home = () => {
   };
 
   const setChangeNickname = (e) => {
-    localStorage.setItem("f5game-test-nickname", e.target.value);
+    localStorage.setItem("f5game-line-nickname", e.target.value);
     setNickname(e.target.value);
   };
 
   const doActionVote = (type) => {
-    const voteArr = localStorage.getItem("f5game-test-vote")
-      ? JSON.parse(localStorage.getItem("f5game-test-vote"))
+    const voteArr = localStorage.getItem("f5game-line-vote")
+      ? JSON.parse(localStorage.getItem("f5game-line-vote"))
       : [];
 
     if (voteArr.includes(item.idx)) {
@@ -161,7 +161,7 @@ export const Home = () => {
         setVoteDownCount(Number(voteDownCount) + 1);
       }
       voteArr.push(item.idx);
-      localStorage.setItem("f5game-test-vote", JSON.stringify(voteArr));
+      localStorage.setItem("f5game-line-vote", JSON.stringify(voteArr));
     }
   };
 
@@ -172,7 +172,7 @@ export const Home = () => {
       location._blank = "_self";
       location.href = url;
     } else if (type === "kakaostory") {
-      url = `https://story.kakao.com/share?text=${result}&url=https://test.f5game.co.kr/${item.idx}`;
+      url = `https://story.kakao.com/share?text=${result}&url=https://line.f5game.co.kr/${item.idx}`;
       location._blank = "_self";
       location.href = url;
     }
@@ -180,7 +180,7 @@ export const Home = () => {
 
   const doActionComment = async () => {
     const params = {
-      testIdx: item.idx,
+      lineIdx: item.idx,
       nickname,
       comment,
       regdate: new Date(),
@@ -203,16 +203,16 @@ export const Home = () => {
           description: message,
           imageUrl: "https://f5game.s3.ap-northeast-2.amazonaws.com/f5game.png",
           link: {
-            mobileWebUrl: `https://test.f5game.co.kr/${item.idx}`,
-            webUrl: `https://test.f5game.co.kr/${item.idx}`,
+            mobileWebUrl: `https://line.f5game.co.kr/${item.idx}`,
+            webUrl: `https://line.f5game.co.kr/${item.idx}`,
           },
         },
         buttons: [
           {
             title: "플레이 하기",
             link: {
-              mobileWebUrl: `https://test.f5game.co.kr/${item.idx}`,
-              webUrl: `https://test.f5game.co.kr/${item.idx}`,
+              mobileWebUrl: `https://line.f5game.co.kr/${item.idx}`,
+              webUrl: `https://line.f5game.co.kr/${item.idx}`,
             },
           },
         ],
@@ -222,8 +222,8 @@ export const Home = () => {
 
   useEffect(() => {
     (async () => {
-      const nick = localStorage.getItem("f5game-test-nickname")
-        ? localStorage.getItem("f5game-test-nickname")
+      const nick = localStorage.getItem("f5game-line-nickname")
+        ? localStorage.getItem("f5game-line-nickname")
         : "";
       const today = new Date().toISOString().slice(0, 10);
       const twitterTrends = localStorage.getItem("twitter-trends")
@@ -239,16 +239,16 @@ export const Home = () => {
         window.location.pathname.length !== 1
           ? window.location.pathname.replace("/", "")
           : list[0].idx;
-      const testItem = await getTest(idx);
+      const lineItem = await getLine(idx);
       const comments = await getCommentList(idx);
-      setItem(testItem);
+      setItem(lineItem);
       setComments(comments);
-      setVoteUpCount(testItem.up);
-      setVoteDownCount(testItem.down);
+      setVoteUpCount(lineItem.up);
+      setVoteDownCount(lineItem.down);
       setNickname(nick);
-      getMessage(testItem);
+      getMessage(lineItem);
       setTimeout(() => {
-        createKakaoButton(testItem, kakaoResultMessage(testItem));
+        createKakaoButton(lineItem, kakaoResultMessage(lineItem));
       }, 500);
     })();
   }, []);

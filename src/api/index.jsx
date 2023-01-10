@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const API_URL =
   process.env.NODE_ENV === "production"
-    ? "https://storypickup.com"
-    : "https://storypickup.com";
+    ? "https://f5game.co.kr/api/line"
+    : "https://f5game.co.kr/api/line";
 
 const getTwitterTrends = async () => {
   try {
@@ -25,36 +25,36 @@ const getTwitterTrends = async () => {
   }
 };
 
-const addTest = async (params) => {
+const addLine = async (params) => {
   try {
-    const res = await axios.post(`${API_URL}/api/add/`, params);
+    const res = await axios.post(`${API_URL}/add/`, params);
     return res.data;
   } catch (e) {
-    return new Error("addTest error");
+    return new Error("addLine error");
   }
 };
 
 const getList = async (page = 0) => {
   try {
-    const res = await axios.get(`${API_URL}/api/list/?page=${page}`);
+    const res = await axios.get(`${API_URL}/list/?page=${page}`);
     return res.data;
   } catch (e) {
     return new Error("getList error");
   }
 };
 
-const getTest = async (idx) => {
+const getLine = async (idx) => {
   try {
-    const res = await axios.get(`${API_URL}/api/test/?idx=${idx}`);
+    const res = await axios.get(`${API_URL}/line/?idx=${idx}`);
     return res.data;
   } catch (e) {
-    return new Error("getTest error");
+    return new Error("getLine error");
   }
 };
 
 const getCommentList = async (idx) => {
   try {
-    const res = await axios.get(`${API_URL}/api/comments/list/?testIdx=${idx}`);
+    const res = await axios.get(`${API_URL}/comments/list/?lineIdx=${idx}`);
     return res.data;
   } catch (e) {
     return new Error("getComments error");
@@ -63,7 +63,7 @@ const getCommentList = async (idx) => {
 
 const addComment = async (params) => {
   try {
-    const res = await axios.post(`${API_URL}/api/comments/add/`, params);
+    const res = await axios.post(`${API_URL}/comments/add/`, params);
     return res.data;
   } catch (e) {
     return new Error("getComments error");
@@ -72,7 +72,7 @@ const addComment = async (params) => {
 
 const doVote = async (idx, type) => {
   try {
-    const res = await axios.get(`${API_URL}/api/vote/?idx=${idx}&type=${type}`);
+    const res = await axios.get(`${API_URL}/vote/?idx=${idx}&type=${type}`);
     return res.data;
   } catch (e) {
     return new Error("doVote error");
@@ -81,9 +81,9 @@ const doVote = async (idx, type) => {
 
 export {
   getTwitterTrends,
-  addTest,
+  addLine,
   getList,
-  getTest,
+  getLine,
   addComment,
   getCommentList,
   doVote,

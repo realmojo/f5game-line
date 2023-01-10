@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button, Popover } from "antd";
-import { addTest } from "../api";
+import { addLine } from "../api";
 import ButtonGroup from "antd/es/button/button-group";
 const { TextArea } = Input;
 
@@ -13,8 +13,8 @@ export const Make = () => {
 
   const [wordArr, setWordArr] = useState([1]);
   const [nickname, setNickname] = useState(
-    localStorage.getItem("f5game-test-nickname")
-      ? localStorage.getItem("f5game-test-nickname")
+    localStorage.getItem("f5game-line-nickname")
+      ? localStorage.getItem("f5game-line-nickname")
       : ""
   );
   const [title, setTitle] = useState("");
@@ -79,7 +79,7 @@ export const Make = () => {
       message,
       word,
     };
-    const res = await addTest(params);
+    const res = await addLine(params);
     location.href = `/?idx=${res}`;
   };
 
@@ -92,7 +92,7 @@ export const Make = () => {
 
   const setChangeNickname = (e) => {
     setNickname(e.target.value);
-    localStorage.setItem("f5game-test-nickname", e.target.value);
+    localStorage.setItem("f5game-line-nickname", e.target.value);
   };
 
   const setChangeMessage = (value) => {
