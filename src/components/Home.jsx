@@ -14,6 +14,7 @@ import {
 const { TextArea } = Input;
 import ButtonGroup from "antd/es/button/button-group";
 import { Footer } from "antd/es/layout/layout";
+import queryString from "query-string";
 
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
@@ -72,7 +73,7 @@ const getTrendTextTop3 = () => {
   if (trendItems.trends.length > 0) {
     shuffle(trendItems.trends);
   }
-  return `${trendItems.trends[0]}${trendItems.trends[1]}${trendItems.trends[2]}`;
+  return `${trendItems.trends[0]},${trendItems.trends[1]},${trendItems.trends[2]}`;
 };
 
 export const Home = () => {
@@ -115,9 +116,9 @@ export const Home = () => {
 
     resultMessage = `${getRandomEmoji()} ${
       item.title
-    }${getRandomFaceEmoji()}%0A${tempMessage}%0A%0A👉 https://line.f5game.co.kr/${
+    }${getRandomFaceEmoji()}%0A${tempMessage}%0A%0A👉 https://line.f5game.co.kr/t?idx=${
       item.idx
-    }%0A${getTrendTextTop3()}`;
+    }%0A&hashtags=${getTrendTextTop3()}`;
     setResult(resultMessage);
   };
 
@@ -172,7 +173,7 @@ export const Home = () => {
       location._blank = "_self";
       location.href = url;
     } else if (type === "kakaostory") {
-      url = `https://story.kakao.com/share?text=${result}&url=https://line.f5game.co.kr/${item.idx}`;
+      url = `https://story.kakao.com/share?text=${result}&url=https://line.f5game.co.kr/t?idx=${item.idx}`;
       location._blank = "_self";
       location.href = url;
     }
@@ -203,16 +204,16 @@ export const Home = () => {
           description: message,
           imageUrl: "https://f5game.s3.ap-northeast-2.amazonaws.com/f5game.png",
           link: {
-            mobileWebUrl: `https://line.f5game.co.kr/${item.idx}`,
-            webUrl: `https://line.f5game.co.kr/${item.idx}`,
+            mobileWebUrl: `https://line.f5game.co.kr/t?idx=${item.idx}`,
+            webUrl: `https://line.f5game.co.kr/t?idx=${item.idx}`,
           },
         },
         buttons: [
           {
             title: "플레이 하기",
             link: {
-              mobileWebUrl: `https://line.f5game.co.kr/${item.idx}`,
-              webUrl: `https://line.f5game.co.kr/${item.idx}`,
+              mobileWebUrl: `https://line.f5game.co.kr/t?idx=${item.idx}`,
+              webUrl: `https://line.f5game.co.kr/t?idx=${item.idx}`,
             },
           },
         ],
@@ -235,10 +236,8 @@ export const Home = () => {
       const list = await getList();
       setList(list);
 
-      const idx =
-        window.location.pathname.length !== 1
-          ? window.location.pathname.replace("/", "")
-          : list[0].idx;
+      const parsed = queryString.parse(location.search);
+      const idx = parsed.idx ? parsed.idx : list[0].idx;
       const lineItem = await getLine(idx);
       const comments = await getCommentList(idx);
       setItem(lineItem);

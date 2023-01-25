@@ -12,7 +12,7 @@ export const TestList = ({ list }) => {
         dataSource={list}
         renderItem={(item) => (
           <List.Item style={{ display: "block" }}>
-            <a href={`/${item.idx}`}>
+            <a href={`/t?idx=${item.idx}`}>
               <div>
                 <span className="font-bold mr-2">{item.title}</span>
               </div>

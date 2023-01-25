@@ -9,6 +9,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" index element={<Home />} />
+        <Route path="/t" index element={<Home />} />
         <Route path="/:idx" index element={<Home />} />
         <Route path="/make" index element={<Make />} />
       </Routes>
